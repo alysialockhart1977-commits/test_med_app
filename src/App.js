@@ -9,10 +9,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Import Navbar
 import Navbar from './Components/Navbar/Navbar';  // adjust path if needed
-import Landing_Page from './Components/Landing_Page/LandingPage';
+import LandingPage from './Components/Landing_Page/LandingPage';
 import Login from './Components/Login/Login';
-import Sign_Up from './Components/Sign_Up/Sign_Up';
-
+import SignUp from './Components/Sign_Up/Sign_Up';
+const Appointments = () => <h1>Appointments Page</h1>;
 
 function App() {
   return (
@@ -20,9 +20,10 @@ function App() {
       <Navbar />  {/* Navation Bar visible on all pages */}
       <Routes>
         {/* Your Route components */}
-        <Route path="/" element={<Landing_Page />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Sign_Up />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/appointments" element={<Appointments />} />
         
       </Routes>
     </BrowserRouter>
