@@ -3,7 +3,7 @@ import "./Sign_Up.css";
 
 function Sign_Up() {
     return (
-        <div>
+        
             <div className="container" style={{ marginTop: "5%" }}> 
             {/* Main container with margin-top */} 
         <div className="signup-grid"> 
