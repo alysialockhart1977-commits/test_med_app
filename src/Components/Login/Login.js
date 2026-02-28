@@ -23,7 +23,7 @@ function Login() {
                         </span>
                         </div>
 
-            <br />
+            
 
             {/* Login form */}
             <div className="login-form">
@@ -33,15 +33,26 @@ function Login() {
             <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
-                type="email" name="email" id="email"
-                className="form-control" placeholder="Enter your email" aria-describedby="helpId"/>
+                type="email" 
+                name="email" 
+                id="email" 
+                required
+                className="form-control" 
+                placeholder="Enter your email" 
+                />
                 </div>
 
-                {/* Password */}
+                {/* Password minimal length 8 characters*/}
                 <div className="form-group">
-                    <label htmmlFor="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input
-                    type="password" name="password" id="password" className="form-control" placeholder="Enter your password" aria-describedby="helpId"
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    required 
+                    className="form-control" 
+                    placeholder="Enter your password"
+                    minLength={8}
                     />
                     </div>
 
@@ -49,18 +60,20 @@ function Login() {
                     <div className="btn-group">
                         <button
                         type="submit"
-                        className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
+                        className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+                        >
                             Login
                             </button>
 
                             <button
                             type="reset"
-                            className="btn btn-danger mb-2 waves-effect waves-light">
+                            className="btn btn-danger mb-2 waves-effect waves-light"
+                            >
                                 Reset
                                 </button>
                                 </div>
 
-                                <br />
+                                
 
                                 {/* Forgot Password */}
                                 <div className="login-text">

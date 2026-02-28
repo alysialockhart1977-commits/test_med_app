@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Sign_Up.css";
 
 function Sign_Up() {
@@ -16,9 +17,9 @@ function Sign_Up() {
             {/* Text for existing members to log in */}
                 Already a member?{" "}
                 <span>
-                    <a href="../Login/Login.html" style={{ color: "#2190FF" }}> 
+                    <Link to="/login" style={{ color: "#2190FF" }}> 
                     Login
-                    </a>
+                    </Link>
                     </span>
             </div>
             {/* Form */}
@@ -30,35 +31,85 @@ function Sign_Up() {
                     {/* Form group for user's name */}
                         <label htmlFor="name">Name</label> 
                         {/* Label for name input field */}
-                        <input type="text" name="name" id="name" required className="form-control" placeholder="Enter your name" aria-describedby="helpId" /> 
+                        <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        required 
+                        className="form-control" 
+                        placeholder="Enter your name" 
+                        aria-describedby="helpId" 
+                        /> 
                         {/* Text input field for name */}
                     </div>
                     <div className="form-group"> 
                     {/* Form group for user's phone number */}
                         <label htmlFor="phone">Phone</label> 
-                        {/* Label for phone input field */}
-                        <input type="tel" name="phone" id="phone" required className="form-control" placeholder="Enter your phone number" aria-describedby="helpId" /> 
-                        {/* Tel input field for phone number */}
+                    
+                        {/* Tel input field for exactly 10 digit phone number */}
+                        <input 
+                        type="tel" 
+                        name="phone" 
+                        id="phone" 
+                        required 
+                        className="form-control" 
+                        placeholder="Enter your phone number" 
+                        aria-describedby="helpId"  
+                        
+                    pattern="[0-9]{10}"
+                    maxLength={10}
+                    inputMode="numeric"
+                    title="Phone number must be exactly 10 digits" 
+                    />
                     </div>
                     <div className="form-group"> 
                     {/* Form group for user's email */}
                         <label htmlFor="email">Email</label> 
                         {/* Label for email input field */}
-                        <input type="email" name="email" id="email" required className="form-control" placeholder="Enter your email" aria-describedby="helpId" /> 
+                        <input 
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        required 
+                        className="form-control" 
+                        placeholder="Enter your email" 
+                        aria-describedby="helpId" 
+                        /> 
                         {/* Email input field */}
                     </div>
                     <div className="form-group"> 
                     {/* Form group for user's password */}
                         <label htmlFor="password">Password</label> 
-                        {/* Label for password input field */}
-                        <input type="password" name="password" id="password" required className="form-control" placeholder="Enter your password" aria-describedby="helpId" /> 
-                        {/* Password input field */}
+                        
+                        {/* Password input field minimal length 8 characters */}
+                        <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        required 
+                        className="form-control" 
+                        placeholder="Enter your password" 
+                        aria-describedby="helpId"  
+                        
+                        minLength={8}
+                        title="Password must be at least 8 characters" 
+                        />
                     </div>
                     <div className="btn-group"> 
                     {/* Button group for form submission and reset */}
-                        <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">Submit</button> 
+                        <button 
+                        type="submit" 
+                        className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+                        >
+                            Submit
+                            </button> 
                         {/* Submit button */}
-                        <button type="reset" className="btn btn-danger mb-2 waves-effect waves-light">Reset</button> 
+                        <button 
+                        type="reset" 
+                        className="btn btn-danger mb-2 waves-effect waves-light"
+                        >
+                            Reset
+                            </button> 
                         {/* Reset button */}
                     </div>
                 </form> 
