@@ -22,7 +22,7 @@ function App() {
         {/* Your Route components */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Sign_Up />} />
         <Route path="/appointments" element={<Appointments />} />
         
       </Routes>
