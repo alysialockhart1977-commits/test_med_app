@@ -66,12 +66,15 @@ const Sign_Up = () => {
                             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className="form-control" placeholder="Enter your email" aria-describedby="helpId" />
                             {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
                         </div>
+                        
+                        
                         {/* Apply similar logic for other form elements like name, phone, and password to capture user information */}
                     </form>
                 </div>
             </div>
-        </div>
+        
         {/* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */}
+        </div>
     );
 }
 
