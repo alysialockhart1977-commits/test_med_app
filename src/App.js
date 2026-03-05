@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import LandingPage from "./Components/Landing_Page/LandingPage";
 import Login from "./Components/Login/Login";
-import SignUp from "./Components/Sign_Up/Sign_Up";
+import Sign_Up from "./Components/Sign_Up/Sign_Up";
 
 // Temporary page
 const Appointments = () => <h1>Appointments Page</h1>;
@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Sign_Up />} />
         <Route path="/appointments" element={<Appointments />} />
       </Routes>
     </BrowserRouter>

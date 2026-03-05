@@ -1,73 +1,85 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
-  const navigate = useNavigate();
-
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [welcomeName, setWelcomeName] = useState("");
+  const navigate = useNavigate();
+ // Read auth info from sessionStorage
+  const authToken = sessionStorage.getItem("auth-token");
+  const storedEmail = sessionStorage.getItem("email");
+  // Extract name before @ (ex: peter@email.com -> peter)
+  const username = useMemo(() => {
+    if (!storedEmail) return "";
+    return storedEmail.split("@")[0]; // everything before @
+  }, [storedEmail]);
 
-  // Run once on load + whenever storage changes (same tab updates handled below too)
-  useEffect(() => {
-    const token = sessionStorage.getItem("auth-token");
-    const email = sessionStorage.getItem("email") || "";
-
-    setIsLoggedIn(!!token);
-
-    // Extract name from email before @ (fallback to sessionStorage "name" if you prefer)
-    if (email.includes("@")) {
-      setWelcomeName(email.split("@")[0]);
-    } else {
-      // fallback if email not present
-      const storedName = sessionStorage.getItem("name") || "";
-      setWelcomeName(storedName);
-    }
-  }, []);
-
-  const handleClick = () => {
-    setIsOpen((prev) => !prev);
-  };
-
+  const handleMenuToggle = () => setIsOpen((prev) => !prev);
   const handleLogout = () => {
-    sessionStorage.clear();         // remove token + name + email + phone
-    setIsLoggedIn(false);
-    setWelcomeName("");
-    navigate("/login");             // or navigate("/")
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("phone");
+    sessionStorage.removeItem("email");
+
+    navigate("/login");
+    window.location.reload();
   };
 
   return (
     <div className="navbar">
       <nav>
-        {/* Logo */}
         <div className="nav__logo">
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/">
             StayHealthy
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+               height="26"
+              width="26"
+              viewBox="0 0 1000 1000"
+              style={{ fill: "#3685fb" }}
+            >
+              <title>Doctor With Stethoscope SVG icon</title>
+              <g>
+                <g>
+                    <path d="M499.8,10c91.7,0,166,74.3,166,166c0,91.7-74.3,166-166,166c-91.7,0-166-74.3-166-166C333.8,84.3,408.1,10,499.8,10z" />
+                  <path d="M499.8,522.8c71.2,0,129.1-58.7,129.1-129.1H370.6C370.6,464.1,428.6,522.8,499.8,522.8z" />
+                  <path d="M693.2,395c-0.7,94.9-70.3,173.7-160.8,188.9v155.9c0,80.3-60.7,150.8-140.8,155.3c-83,4.7-152.7-58.9-157.6-139.7c-22-12.8-35.6-38.5-30.3-66.7c4.7-25.1,25.5-45.6,50.8-49.9c39.7-6.7,74.1,23.7,74.1,62.1c0,23-12.3,43-30.7,54.1c4.7,45.4,45.1,80.4,92.6,76c44.6-4,77.2-44...." />
+                </g>
+              </g>
+            </svg>
           </Link>
           <span>.</span>
         </div>
 
-        {/* Mobile icon */}
-        <div className="nav__icon" onClick={handleClick}>
-          <i className="fa fa-bars" />
+        <div className="nav__icon" onClick={handleMenuToggle}>
+          <i className="fa fa-times fa fa-bars"></i>
         </div>
 
-        {/* Links */}
         <ul className={`nav__links ${isOpen ? "active" : ""}`}>
           <li className="link">
             <Link to="/">Home</Link>
           </li>
-
           <li className="link">
             <Link to="/appointments">Appointments</Link>
           </li>
 
-          {/* If NOT logged in -> show Sign Up + Login */}
-          {!isLoggedIn && (
+          {/* If logged in, show Welcome + Logout */}
+          {authToken ? (
+            <>
+              <li className="link welcome-user">
+                <span>{`Welcome, ${username}`}</span>
+              </li>
+
+              <li className="link">
+                <button className="btn2" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
             <>
               <li className="link">
-                <Link to="/signup">
+               <Link to="/signup">
                   <button className="btn1">Sign Up</button>
                 </Link>
               </li>
@@ -79,25 +91,10 @@ function Navbar() {
               </li>
             </>
           )}
-
-          {/* If logged in -> show Welcome + Logout */}
-          {isLoggedIn && (
-            <>
-              <li className="link" style={{ fontWeight: 600 }}>
-                Welcome, {welcomeName}
-              </li>
-
-              <li className="link">
-                <button className="btn1" type="button" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
-            </>
-          )}
         </ul>
       </nav>
     </div>
   );
 }
 
-export default Navbar;
+export default Navbar; 
