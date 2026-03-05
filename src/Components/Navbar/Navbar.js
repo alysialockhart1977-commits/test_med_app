@@ -2,6 +2,10 @@ import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
+const token = sessionStorage.getItem("auth-token");
+const email = sessionStorage.getItem("email") || "";
+const username = email ? email.split("@")[0] : ""; 
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
