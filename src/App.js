@@ -1,6 +1,8 @@
-
 // Import React
 import React from "react";
+
+// Import InstantConsultation.js
+import InstantConsultation from "./Components/InstantConsultation/InstantConsultation";
 
 // Import CSS
 import "./App.css";
@@ -28,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/appointments" element={<Appointments />} />
+        <Route path="/instant-consultation" element={<InstantConsultation />} />
       </Routes>
     </BrowserRouter>
   );
