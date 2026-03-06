@@ -152,18 +152,20 @@ const Sign_Up = () => {
               </div>
             )}
 
+            {/* Submit = btn-primary (blue), Reset = btn-danger (red) */}
+
             <div className="btn-group">
               <button
                 type="submit"
-                className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
-              onClick={() => {
-                setName("");
-                setPhone("");
-                setEmail("");
-                setPassword("");
-                setShowerr("");
-              }}
+                className="btn btn-primary">
+                Submit
+                </button>
+                <button
+                  type="reset"
+                  className="btn btn-danger"
+                  onClick={() => setShowerr("")}
               >
+              
                 Reset
                 </button>
               
@@ -175,7 +177,7 @@ const Sign_Up = () => {
       {/* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */}
     </div>
   );
-};
+}
 
 export default Sign_Up; // Export the Sign_Up component for use in other components
                

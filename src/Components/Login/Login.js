@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
 import "./Login.css";
 
-const Login = () => {
+function Login() {
   // State variables for email and password
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -38,13 +38,12 @@ const Login = () => {
       navigate("/");
       window.location.reload();
     } else {
-      if (json.errors) {
-        for (const error of json.errors) alert(error.msg);
-      } else {
-        alert(json.error);
+      if (json.errors?.length) alert(json.errors[0].msg);
+      else alert(json.error || "Login failed.");
+        
       }
-    }
-  };
+    };
+  
 
   return (
     <div className="container">
@@ -62,8 +61,6 @@ const Login = () => {
           </span>
         </div>
 
-        <br />
-
         <div className="login-form">
           <form onSubmit={login}>
             <div className="form-group">
@@ -76,7 +73,6 @@ const Login = () => {
                 id="email"
                 className="form-control"
                 placeholder="Enter your email"
-                aria-describedby="helpId"
                 required
               />
             </div>
@@ -91,26 +87,31 @@ const Login = () => {
                 id="password"
                 className="form-control"
                 placeholder="Enter your password"
-                aria-describedby="helpId"
                 required
                 minLength={8}
               />
             </div>
 
+            {/* Login = blue, Reset = red */}
             <div className="btn-group">
               <button
                 type="submit"
-                className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+                className="btn btn-primary"
               >
                 Login
               </button>
+              <button type="reset" className="btn btn-danger">
+                Reset
+              </button>
             </div>
+
+            <div className="login-text">Forgot Password?</div>
           </form>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
 
