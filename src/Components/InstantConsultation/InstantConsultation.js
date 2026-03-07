@@ -59,6 +59,7 @@ const InstantConsultation = () => {
         // if (!authtoken) {
         //     navigate("/login");
         // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams]);
 
     return (

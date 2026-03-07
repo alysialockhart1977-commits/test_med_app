@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './FindDoctorSearchIC.css';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const initSpeciality = [
