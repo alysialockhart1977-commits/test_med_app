@@ -1,0 +1,64 @@
+/* Appointment form container */
+.appointment-form {
+    width: 420px;
+    background: #f6f6f6;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Form group spacing */
+.appointment-form .form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.appointment-form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Text inputs */
+.appointment-form input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d1d1;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Date input */
+.appointment-form input[type="date"] {
+    padding: 10px;
+}
+
+/* Time slot dropdown */
+.appointment-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d1d1;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Book button */
+.appointment-form button {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.appointment-form button:hover {
+    background-color: #1565c0;
+}

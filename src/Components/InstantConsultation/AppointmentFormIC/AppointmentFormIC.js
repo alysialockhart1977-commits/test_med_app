@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import './AppointmentFormIC.css';
 
 const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit }) => {
     // State for form fields
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [appointmentDate, setAppointment] = useState('');
+    const [appointmentDate, setAppointmentDate] = useState('');
     const [timeSlot, setTimeSlot] = useState('');
 
     // State for error message
