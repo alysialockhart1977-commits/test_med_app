@@ -19,6 +19,10 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
         (appointment) => appointment.id !== appointmentId
     );
     setAppointments(updatedAppointments);
+
+    // Notification disappears when appointment cancelled
+    localStorage.removeItem(name);
+    window.dispatchEvent(new Event("appointmentCancelled"));
   };
 
   const handleFormSubmit = (appointmentData) => {
@@ -28,6 +32,12 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
     };
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
+
+    // Stored doctor information for the notification
+    localStorage.setItem(
+        "doctorData",
+        JSON.stringify({ name, speciality, experience, ratings })
+    )
 
     // Keep modal open so the "Appointment Booked!" screen appears
     setShowModal(true);
