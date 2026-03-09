@@ -15,6 +15,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import LandingPage from "./Components/Landing_Page/LandingPage";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Sign_Up/Sign_Up";
+import Notification from "./Components/Notification/Notification";
 
 // Temporary page
 const Appointments = () => <h1>Appointments Page</h1>;
@@ -22,8 +23,12 @@ const Appointments = () => <h1>Appointments Page</h1>;
 function App() {
   return (
     <BrowserRouter>
-      {/* Navbar appears at top of every page */}
-      <Navbar />
+
+      {/* Notification wrapper */}
+      <Notification>
+
+        {/* Navbar appears on every page */}
+        <Navbar />
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -32,8 +37,12 @@ function App() {
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/instant-consultation" element={<InstantConsultation />} />
       </Routes>
+
+      </Notification>
+
     </BrowserRouter>
   );
+  
 }
 
 export default App;
