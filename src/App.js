@@ -27,8 +27,8 @@ function App() {
       {/* Notification wrapper */}
       <Notification>
 
-        {/* Navbar appears on every page */}
-        <Navbar />
+        
+
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -42,7 +42,7 @@ function App() {
 
     </BrowserRouter>
   );
-  
+
 }
 
 export default App;

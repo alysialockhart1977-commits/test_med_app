@@ -33,11 +33,14 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
 
-    // Stored doctor information for the notification
+    // Stored doctor information for notification
     localStorage.setItem(
         "doctorData",
         JSON.stringify({ name, speciality, experience, ratings })
-    )
+    );
+
+    // Store appointment details using doctor name as key
+    localStorage.setItem(name, JSON.stringify(newAppointment));
 
     // Keep modal open so the "Appointment Booked!" screen appears
     setShowModal(true);
@@ -47,7 +50,7 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
     <div className="doctor-card-container">
       <div className="doctor-card-details-container">
         <div className="doctor-card-profile-image-container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"
         > <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>
         </div>
         <div className="doctor-card-details">
@@ -72,7 +75,7 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
           style={{ backgroundColor: '#FFFFFF' }}
           trigger={
             <button 
-            OnClick={handleBooking}
+            onClick={handleBooking}
             className={`book-appointment-btn ${
                 appointments.length > 0 ? 'cancel-appointment' : ''}`}>
               {appointments.length > 0 ? (
@@ -91,7 +94,7 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
             <div className="doctorbg" style={{ height: '100vh', overflow: 'scroll' }}>
               <div>
                 <div className="doctor-card-profile-image-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/> </svg>
                 </div>
                 <div className="doctor-card-details">
                   <div className="doctor-card-detail-name">{name}</div>
