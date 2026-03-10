@@ -17,8 +17,9 @@ const Notification = ({ children }) => {
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-    const storedAppointmentData = JSON.parse(
-        localStorage.getItem(storedDoctorData?.name)
+    const storedAppointmentData = storedDoctorData
+    ? JSON.parse(localStorage.getItem(storedDoctorData?.name)
+    : null; // Prevents undefined lookups
     );
 
     // If user is Logged in update state
