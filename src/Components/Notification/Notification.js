@@ -7,7 +7,6 @@ import './Notification.css';
 const Notification = ({ children }) => {
   // State variables to manage user authentication, username, doctor data, and appointment data
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
   const [doctorData, setDoctorData] = useState(null);
   const [appointmentData, setAppointmentData] = useState(null);
 
@@ -24,8 +23,7 @@ const Notification = ({ children }) => {
 
     // If user is Logged in update state
     if (storedUsername) {
-        setIsLoggedIn(true); 
-        setUsername(storedUsername);   
+        setIsLoggedIn(true);   
     }  
     
     if (storedDoctorData) {
@@ -49,7 +47,6 @@ useEffect(() => {
 
         if (storedUsername) {
             setIsLoggedIn(true);
-            setUsername(storedUsername);
         }
 
         if (storedDoctorData) {
