@@ -22,7 +22,7 @@ const Notification = ({ children }) => {
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-    const storedAppointmetData = JSON.parse(
+    const storedAppointmentData = JSON.parse(
         localStorage.getItem(storedDoctorData?.name)
     );
 
@@ -49,8 +49,8 @@ useEffect(() => {
             localStorage.getItem(storedDoctorData?.name)
         );
 
-        if (storedDoctorDate) {
-            setDoctorDate(storedDoctorData);
+        if (storedDoctorData) {
+            setDoctorData(storedDoctorData);
         }
 
         if (storedAppointmentData) {
@@ -63,7 +63,7 @@ useEffect(() => {
 
     return () => {
         window.removeEventListener('appointmentBooked', handleBooked);
-    };
+    }
 }, []);
 
 // Listen for cancelation event and hide notification
@@ -78,7 +78,7 @@ useEffect(() => {
     return () => {
         window.removeEventListener('appointmentCancelled', handleCancel);
     };
-}; []);
+}, []);
 
 return (
     <div>

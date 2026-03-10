@@ -28,8 +28,6 @@ function App() {
       <Notification>
 
         
-
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
