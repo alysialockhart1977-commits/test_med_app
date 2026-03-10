@@ -11,7 +11,6 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import components
-import Navbar from "./Components/Navbar/Navbar";
 import LandingPage from "./Components/Landing_Page/LandingPage";
 import Login from "./Components/Login/Login";
 import SignUp from "./Components/Sign_Up/Sign_Up";

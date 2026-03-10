@@ -6,17 +6,13 @@ import './Notification.css';
 // Function component Notification to display user notifications
 const Notification = ({ children }) => {
   // State variables to manage user authentication, username, doctor data, and appointment data
-  // State to check if user is Logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // State to control when notification should appear
-  const [showNotification, setShowNotification] = useState(false);
-  
-  // State to store doctor information
+  const [username, setUsername] = useState("");
   const [doctorData, setDoctorData] = useState(null);
-
-  // State to store appointment information
   const [appointmentData, setAppointmentData] = useState(null);
+
+  // State variable to control whether notification should be displayed
+  const [showNotification, setShowNotification] = useState(false);
 
   // Load stored Login, doctor, and appointment details on first render
   useEffect(() => {
@@ -28,7 +24,8 @@ const Notification = ({ children }) => {
 
     // If user is Logged in update state
     if (storedUsername) {
-        setIsLoggedIn(true);    
+        setIsLoggedIn(true); 
+        setUsername(storedUsername);   
     }  
     
     if (storedDoctorData) {
@@ -44,10 +41,16 @@ const Notification = ({ children }) => {
 // Listen for booking event and show notification immediately
 useEffect(() => {
     const handleBooked = () => {
+        const storedUsername = sessionStorage.getItem('email');
         const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
         const storedAppointmentData = JSON.parse(
             localStorage.getItem(storedDoctorData?.name)
         );
+
+        if (storedUsername) {
+            setIsLoggedIn(true);
+            setUsername(storedUsername);
+        }
 
         if (storedDoctorData) {
             setDoctorData(storedDoctorData);
@@ -63,7 +66,7 @@ useEffect(() => {
 
     return () => {
         window.removeEventListener('appointmentBooked', handleBooked);
-    }
+    };
 }, []);
 
 // Listen for cancelation event and hide notification
