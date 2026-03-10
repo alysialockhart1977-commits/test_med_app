@@ -18,9 +18,9 @@ const Notification = ({ children }) => {
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
     const storedAppointmentData = storedDoctorData
-    ? JSON.parse(localStorage.getItem(storedDoctorData?.name)
+    ? JSON.parse(localStorage.getItem(storedDoctorData?.name))
     : null; // Prevents undefined lookups
-    );
+    
 
     // If user is Logged in update state
     if (storedUsername) {
@@ -28,7 +28,7 @@ const Notification = ({ children }) => {
     }  
     
     if (storedDoctorData) {
-        setDoctorData(storedDoctorData);
+        setDoctorData(storedDoctorData)
     }
 
     if (storedAppointmentData) {
