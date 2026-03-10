@@ -42,8 +42,11 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
     // Store appointment details using doctor name as key
     localStorage.setItem(name, JSON.stringify(newAppointment));
 
-    // Keep modal open so the "Appointment Booked!" screen appears
-    setShowModal(true);
+     // Notify Notification component that appointment was booked
+    window.dispatchEvent(new Event("appointmentBooked"));
+
+    // Close popup so the blue notification can be seen on the page
+    setShowModal(false);
   };
 
   return (
