@@ -1,77 +1,83 @@
 import React, { useState } from "react";
 import "./ReviewForm.css";
 
-// Coponent that displays the feedback form
-function GiveReviews({ doctorName, onClose }) {
-
-    // Form state
+// Function component for giving reviews
+function GiveReviews({ doctor, onClose, onSubmitReview}) {
+   //State variables using useState hook
+   const [showWarning, setShowWarning] = useState(false);
+    
     const [formData, setFormData] = useState({
         name: "",
-        review: ""
+        review: "",
+        rating: 0,
     });
 
-    const [showWarning, setShowWarning] = useState(false);
-
-    // Handle input changes
+    // Function to handle form input changes
     const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+        // Update the form data based on user input
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  // Handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    // Function to handle rating click
+    const handleRatingClick = (value) => {
+        setFormData({ ...formData, rating: value });
+    };
 
-    if (formData.name && formData.review) {
-      alert("Review Submitted Successfully!");
+    // Function to handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-     // Reset form
+    // Check if all required fields are filled before submission
+    if (formData.name && formData.review && formData.rating > 0) {
+        setShowWarning(false); 
+
+        // Send review back to ReviewForm
+        onSubmitReview(doctor.id, formData);
+
+         // Reset form
       setFormData({
         name: "",
-        review: ""
+        review: "",
+        rating: 0,
       });
-
-      setShowWarning(false);
-      
-      // Close form
-      onClose();
     } else {
       setShowWarning(true);
     }
-  };
+};
 
-  return (
+return (
     <div className="review-form-card">
-
       <h2>Give Your Review</h2>
 
-      {showWarning && (
-        <p className="warning">Please fill out all fields.</p>
-      )}
+      {/* Display warning message if not all fields are filled */}
+      {showWarning && <p className="warning">Please fill out all fields.</p>}
 
       <form onSubmit={handleSubmit}>
-
-        <label>Name:</label>
+        <label htmlFor="name">Name:</label>
         <input
           type="text"
+          id="name"
           name="name"
           value={formData.name}
           onChange={handleChange}
         />
 
-        <label>Review:</label>
-        <textarea
-          name="review"
-          value={formData.review}
-          onChange={handleChange}
-        />
+<label>Rating:</label>
+        <div className="rating-stars">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <span
+              key={star}
+              className={star <= formData.rating ? "star selected-star" : "star"}
+              onClick={() => handleRatingClick(star)}
+            >
+              ★
+            </span>
+          ))}
+        </div>
 
+        {/* Submit button for form submission */}
         <button type="submit">Submit</button>
-
       </form>
-
     </div>
   );
 }

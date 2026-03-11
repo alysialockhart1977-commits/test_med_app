@@ -1,41 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ReviewForm.css";
 import GiveReviews from "./GiveReviews";
 
 const ReviewForm = () => {
-
-    const [selectedDoctor, setSelectedDoctor] = useState(null);
-
-    // Sample consultation data
-    const reviews = [
+    // Sample consultation data with review status/message
+    const [reviews, setReviews] = useState([
         {
         id: 1,
         doctorName: "Dr. John Doe",
         speciality: "Cardiology",
+        reviewGiven: false,
+        reviewMessage: "",
         },
         {
         id: 2,
         doctorName: "Dr. Jane Smith",
         speciality: "Dermatology",
-        }
-    ];
+        reviewGiven: false,
+        reviewMessage: "",
+        },
+    ]);
 
-    // Function to handle button click
-    const handleFeedbackClick = (doctorName) => {
-        setSelectedDoctor(doctorName);
+    // Track which doctor form is open
+    const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+
+    // Open feedback form for selected doctor
+    const handleFeedbackClick = (doctorId) => {
+        setSelectedDoctorId(selectedDoctorId);
     };
 
+    // Close review form
     const closeForm = () => {
-        setSelectedDoctor(null);
+        setSelectedDoctorId(null);
     };
 
-    return (
-      <div className="review-container">
+    // Save submitted into the correct row
+    const handleReviewSubmit = (doctorId, submittedData) => {
+        const updatedReviews = reviews.map((review) =>
+        review.id === doctorId
+        ? {
+            ...review,
+            reviewGiven: true,
+            reviewMessage: "Review Submitted",
+            submittedReview: submittedData,
+        }
+        : review
+    );
 
+    setReviews(updatedReviews);
+    setSelectedDoctorId(null);
+  };
+
+     return (
+      <div className="review-container">
         <h2>Reviews</h2>
 
         <table className="review-table">
-
             <thead>
                 <tr>
                     <th>Serial Number</th>
@@ -49,7 +69,6 @@ const ReviewForm = () => {
             <tbody>
              {reviews.map((review) => (
                 <tr key={review.id}>
-
                     <td>{review.id}</td>
                     <td>{review.doctorName}</td>
                     <td>{review.speciality}</td>
@@ -57,30 +76,29 @@ const ReviewForm = () => {
                     <td>
                         <button
                         className="feedback-btn"
-                        onClick={() => handleFeedbackClick(review.doctorName)}
+                        onClick={() => handleFeedbackClick(review.id)}
+                        disabled={review.reviewGiven}
                         >
-                            Click Here
+                            {review.reviewGiven ? "Submitted" : "Click Here"}
                         </button>
                     </td>
 
-                    <td></td>
+                    <td classNumber="review-given-cell">
+                        {review.reviewMessage}
+                    </td>
                 </tr>
              ))}
-
              </tbody>
-
              </table>
 
              {/* Show review form when button clicked */}
-
-             {selectedDoctor $$ (
+             {selectedDoctorId && (
                 <GiveReviews
-                doctorName={selectedDoctor}
+                doctor={reviews.find((review) => review.id === selectedDoctorId)}
                 onClose={closeForm}
+                onSubmitReview={handleReviewSubmit}
                 />
-
-             )
-
+             )}
              </div> 
     );
 };
