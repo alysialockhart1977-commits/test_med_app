@@ -26,7 +26,7 @@ const ReviewForm = () => {
 
     // Open feedback form for selected doctor
     const handleFeedbackClick = (doctorId) => {
-        setSelectedDoctorId(selectedDoctorId);
+        setSelectedDoctorId(doctorId);
     };
 
     // Close review form
@@ -51,9 +51,21 @@ const ReviewForm = () => {
     setSelectedDoctorId(null);
   };
 
+  const selectedDoctor = reviews.find(
+    (review) => review.id === selectedDoctorId
+  );
      return (
       <div className="review-container">
         <h2>Reviews</h2>
+
+        {/* Show review form ABOVE table */}
+        {selectedDoctor && (
+            <GiveReviews
+            doctor={selectedDoctor}
+            onClose={closeForm}
+            OnSubmitReview={handleReviewSubmit}
+            />
+        )}
 
         <table className="review-table">
             <thead>
@@ -76,30 +88,22 @@ const ReviewForm = () => {
                     <td>
                         <button
                         className="feedback-btn"
-                        onClick={() => handleFeedbackClick(review.id)}
-                        disabled={review.reviewGiven}
+                        onClick={() => {
+                            console.log("clicked", review.id);
+                        handleFeedbackClick(review.id);
+                        }}
                         >
                             {review.reviewGiven ? "Submitted" : "Click Here"}
                         </button>
                     </td>
 
-                    <td classNumber="review-given-cell">
-                        {review.reviewMessage}
-                    </td>
-                </tr>
-             ))}
-             </tbody>
-             </table>
+                    <td classNumber="review-given-cell">{review.reviewMessage}</td>
+                   </tr>
+                  ))}
+                 </tbody>
+               </table>
+              </div>
 
-             {/* Show review form when button clicked */}
-             {selectedDoctorId && (
-                <GiveReviews
-                doctor={reviews.find((review) => review.id === selectedDoctorId)}
-                onClose={closeForm}
-                onSubmitReview={handleReviewSubmit}
-                />
-             )}
-             </div> 
     );
 };
 

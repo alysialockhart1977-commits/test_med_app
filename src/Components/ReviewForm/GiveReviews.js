@@ -15,12 +15,14 @@ function GiveReviews({ doctor, onClose, onSubmitReview}) {
     // Function to handle form input changes
     const handleChange = (e) => {
         // Update the form data based on user input
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({ ...formData, [e.target.name]: e.target.value, 
+        });
     };
 
     // Function to handle rating click
     const handleRatingClick = (value) => {
-        setFormData({ ...formData, rating: value });
+        setFormData({ ...formData, rating: value, 
+        });
     };
 
     // Function to handle form submission
@@ -50,7 +52,9 @@ return (
       <h2>Give Your Review</h2>
 
       {/* Display warning message if not all fields are filled */}
-      {showWarning && <p className="warning">Please fill out all fields.</p>}
+      {showWarning && (
+      <p className="warning">Please fill out all fields.</p>
+    )}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
@@ -62,7 +66,15 @@ return (
           onChange={handleChange}
         />
 
-<label>Rating:</label>
+        <label htmlFor="review">:</label>
+        <textarea
+          id="review"
+          name="review"
+          value={formData.review}
+          onChange={handleChange}
+        />
+        
+        <label>Rating:</label>
         <div className="rating-stars">
           {[1, 2, 3, 4, 5].map((star) => (
             <span
