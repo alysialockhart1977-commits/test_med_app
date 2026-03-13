@@ -11,6 +11,7 @@ const ReviewForm = () => {
         speciality: "Cardiology",
         reviewGiven: false,
         reviewMessage: "",
+        submittedReview: null,
         },
         {
         id: 2,
@@ -18,10 +19,11 @@ const ReviewForm = () => {
         speciality: "Dermatology",
         reviewGiven: false,
         reviewMessage: "",
+        submittedReview: null,
         },
     ]);
 
-    // Track which doctor form is open
+    // Track which doctor is selected for review form
     const [selectedDoctorId, setSelectedDoctorId] = useState(null);
 
     // Open feedback form for selected doctor
@@ -29,19 +31,19 @@ const ReviewForm = () => {
         setSelectedDoctorId(doctorId);
     };
 
-    // Close review form
-    const closeForm = () => {
+    // Return to table view without submitting
+    const handleBackToReviews = () => {
         setSelectedDoctorId(null);
     };
 
-    // Save submitted into the correct row
+    // Save submitted review, disable button, return to table
     const handleReviewSubmit = (doctorId, submittedData) => {
         const updatedReviews = reviews.map((review) =>
         review.id === doctorId
         ? {
             ...review,
             reviewGiven: true,
-            reviewMessage: "Review Submitted",
+            reviewMessage: submittedData.review,
             submittedReview: submittedData,
         }
         : review
@@ -56,16 +58,10 @@ const ReviewForm = () => {
   );
      return (
       <div className="review-container">
-        <h2>Reviews</h2>
-
-        {/* Show review form ABOVE table */}
-        {selectedDoctor && (
-            <GiveReviews
-            doctor={selectedDoctor}
-            onClose={closeForm}
-            OnSubmitReview={handleReviewSubmit}
-            />
-        )}
+        {/* Table View */}
+        {!selectedDoctor && (
+            <>
+            <h2>Reviews</h2>
 
         <table className="review-table">
             <thead>
@@ -88,21 +84,31 @@ const ReviewForm = () => {
                     <td>
                         <button
                         className="feedback-btn"
-                        onClick={() => {
-                            console.log("clicked", review.id);
-                        handleFeedbackClick(review.id);
-                        }}
+                        onClick={() => handleFeedbackClick(review.id)}
+                            disabled={review.reviewGiven}
                         >
                             {review.reviewGiven ? "Submitted" : "Click Here"}
                         </button>
                     </td>
 
-                    <td classNumber="review-given-cell">{review.reviewMessage}</td>
+                    <td classNumber="review-given-cell">
+                        {review.reviewGiven ? review.reviewMessage : ""}                  
+                    </td>                             
                    </tr>
-                  ))}
-                 </tbody>
-               </table>
-              </div>
+                 ))}
+            </tbody>
+         </table>
+         </>
+        )}
+        {/* Form View */}
+        {selectedDoctor && (
+            <GiveReviews
+            doctor={selectedDoctor}
+            onSubmitReview={handleReviewSubmit}
+            onBack={handleBackToReviews}
+            />
+        )}
+      </div>
 
     );
 };

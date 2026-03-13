@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ReviewForm.css";
 
 // Function component for giving reviews
-function GiveReviews({ doctor, onClose, onSubmitReview}) {
+function GiveReviews({ doctor, onSubmitReview, onBack}) {
    //State variables using useState hook
    const [showWarning, setShowWarning] = useState(false);
     
@@ -19,13 +19,13 @@ function GiveReviews({ doctor, onClose, onSubmitReview}) {
         });
     };
 
-    // Function to handle rating click
+    // Function to handle rating star click
     const handleRatingClick = (value) => {
         setFormData({ ...formData, rating: value, 
         });
     };
 
-    // Function to handle form submission
+    // Submit review and return to ReviewForm table
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -48,12 +48,22 @@ function GiveReviews({ doctor, onClose, onSubmitReview}) {
 };
 
 return (
-    <div className="review-form-card">
+    <div className="review-form-page">
+        <div className="review-form-card">
       <h2>Give Your Review</h2>
+
+      <div className="doctor-review-info">
+        <p>
+            <strong>Doctor:</strong> {doctor.doctorName}
+            </p>
+            <p>
+            <strong>Speciality:</strong> {doctor.speciality}
+            </p>
+            </div>
 
       {/* Display warning message if not all fields are filled */}
       {showWarning && (
-      <p className="warning">Please fill out all fields.</p>
+      <p className="warning">Please fill out all fields and select a rating.</p>
     )}
 
       <form onSubmit={handleSubmit}>
@@ -66,7 +76,7 @@ return (
           onChange={handleChange}
         />
 
-        <label htmlFor="review">:</label>
+        <label htmlFor="review">Review:</label>
         <textarea
           id="review"
           name="review"
@@ -89,7 +99,11 @@ return (
 
         {/* Submit button for form submission */}
         <button type="submit">Submit</button>
+        <button type="button" className="back-btn" onClick={onBack}>
+        Back
+        </button>
       </form>
+    </div>
     </div>
   );
 }
