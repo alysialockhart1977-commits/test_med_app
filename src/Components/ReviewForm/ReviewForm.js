@@ -31,10 +31,6 @@ const ReviewForm = () => {
         setSelectedDoctorId(doctorId);
     };
 
-    // Return to table view without submitting
-    const handleBackToReviews = () => {
-        setSelectedDoctorId(null);
-    };
 
     // Save submitted review, disable button, return to table
     const handleReviewSubmit = (doctorId, submittedData) => {
@@ -61,7 +57,7 @@ const ReviewForm = () => {
         {/* Table View */}
         {!selectedDoctor && (
             <>
-            <h2>Reviews</h2>
+            <h2> className="review-title">Reviews</h2>
 
         <table className="review-table">
             <thead>
@@ -105,7 +101,6 @@ const ReviewForm = () => {
             <GiveReviews
             doctor={selectedDoctor}
             onSubmitReview={handleReviewSubmit}
-            onBack={handleBackToReviews}
             />
         )}
       </div>

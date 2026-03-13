@@ -1,108 +1,130 @@
 .review-container {
     width: 92%;
     margin: 120px auto 40px auto;
-}
-
-.review-container h2 {
-    font-size: 60px;
+  }
+  
+  .reviews-title {
+    font-size: 64px;
     font-weight: 700;
-    margin-bottom: 24px;
-}
-
-.review-table {
+    margin-bottom: 26px;
+  }
+  
+  .review-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-}
-
-.review-table th,
-.review-table td { 
-   text-align: left;
-   padding: 22px 14px;
-   border-bottom: 1px solid #ddd;
-   vertical-align: middle;
-}
-
-.review-table th {
+  }
+  
+  .review-table th,
+  .review-table td {
+    text-align: left;
+    padding: 24px 14px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+  }
+  
+  .review-table th {
     font-weight: 700;
+    font-size: 18px;
     background-color: #f3f3f3;
-}
-
-.feedback-btn {
+  }
+  
+  .feedback-btn {
+    min-width: 160px;
+    height: 56px;
     background-color: #2d89ef;
     color: white;
     border: none;
-    padding: 12px 26px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-}
-
-.feedback-btn:hover {
+  }
+  
+  .feedback-btn:hover {
     background-color: #1565c0;
-}
-
-.feedback-btn:disabled {
-  background-color: #9ec5f8;
-  cursor: not-allowed;
-}
-
-.review-given-cell {
-    max-width: 240px;
-    word-wrap: break-word;
+  }
+  
+  .feedback-btn:disabled {
+    background-color: #9ec5f8;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  .review-given-cell {
+    max-width: 260px;
     white-space: normal;
-  color: #333;
-}
-
-.review-form-card {
+    word-wrap: break-word;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .review-form-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    margin-top: 30px;
-}
-
-.review-form-card {
-    width: 520px;
+    margin-top: 20px;
+  }
+  
+  .review-form-card {
+    width: 540px;
     background: #f5f5f5;
-    padding: 28px;
+    padding: 30px 36px;
     border-radius: 10px;
-}
-
-.review-form-card h2 {
+  }
+  
+  .give-review-title {
     text-align: center;
-    margin-bottom: 18px;
-    font-size: 34px
-}
-
-.doctor-review-info {
-    margin-botton: 18px;
-    padding: 12px;
-    background: #ffffff;
-    border-radius: 8px;
-}
-
-.review-form-card label {
-    font-weight: 600;
-    margin-top: 12px;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  
+  .review-form-card form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-form-card label {
     display: block;
-}
-
-.review-form-card input,
-.review-form-card textarea {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .review-form-card input,
+  .review-form-card textarea {
     width: 100%;
     padding: 12px;
-    margin-top: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-}
-
-.review-form-card textarea {
+    box-sizing: border-box;
+  }
+  
+  .review-form-card textarea {
     min-height: 120px;
     resize: vertical;
-}
-
-.review-form-card button {
+  }
+  
+  .rating-stars {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    text-align: left;
+  }
+  
+  .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+    margin-right: 6px;
+  }
+  
+  .selected-star {
+    color: gold;
+  }
+  
+  .submit-btn {
     width: 100%;
     background: #1e88f5;
     color: white;
@@ -112,30 +134,11 @@
     margin-top: 16px;
     cursor: pointer;
     font-size: 16px;
-}
-
-.back-btn {
-    background: #666 !important;
-}
-
-.warning {
+  }
+  
+  .warning {
     color: red;
     font-size: 14px;
-    margin-top: 10px;
-}
-
-.rating-stars {
-  margin-top: 8px;
-  margin-bottom: 10px;
-}
-
-.star {
-  font-size: 32px;
-  cursor: pointer;
-  color: #ccc;
-  margin-right: 6px;
-}
-
-.selected-star {
-  color: gold;
-}
+    margin-bottom: 8px;
+    text-align: left;
+  }

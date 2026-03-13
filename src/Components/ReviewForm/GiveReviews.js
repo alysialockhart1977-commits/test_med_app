@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./ReviewForm.css";
 
+
 // Function component for giving reviews
-function GiveReviews({ doctor, onSubmitReview, onBack}) {
+function GiveReviews({ doctor, onSubmitReview }) {
    //State variables using useState hook
    const [showWarning, setShowWarning] = useState(false);
     
@@ -13,9 +14,8 @@ function GiveReviews({ doctor, onSubmitReview, onBack}) {
     });
 
     // Function to handle form input changes
-    const handleChange = (e) => {
-        // Update the form data based on user input
-        setFormData({ ...formData, [e.target.name]: e.target.value, 
+    const handleChange = (e) => { 
+        setFormData({ ...formData, [e.target.name]: e.target.h2value, 
         });
     };
 
@@ -50,16 +50,8 @@ function GiveReviews({ doctor, onSubmitReview, onBack}) {
 return (
     <div className="review-form-page">
         <div className="review-form-card">
-      <h2>Give Your Review</h2>
+      <h2 className="give-review-title">Give Your Review</h2>
 
-      <div className="doctor-review-info">
-        <p>
-            <strong>Doctor:</strong> {doctor.doctorName}
-            </p>
-            <p>
-            <strong>Speciality:</strong> {doctor.speciality}
-            </p>
-            </div>
 
       {/* Display warning message if not all fields are filled */}
       {showWarning && (
@@ -98,9 +90,9 @@ return (
         </div>
 
         {/* Submit button for form submission */}
-        <button type="submit">Submit</button>
-        <button type="button" className="back-btn" onClick={onBack}>
-        Back
+        <button type="submit" className="submit-btn">
+        
+        Submit
         </button>
       </form>
     </div>
