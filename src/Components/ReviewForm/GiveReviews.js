@@ -15,7 +15,7 @@ function GiveReviews({ doctor, onSubmitReview }) {
 
     // Function to handle form input changes
     const handleChange = (e) => { 
-        setFormData({ ...formData, [e.target.name]: e.target.h2value, 
+        setFormData({ ...formData, [e.target.name]: e.target.value, 
         });
     };
 

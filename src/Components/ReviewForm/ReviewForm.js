@@ -57,7 +57,7 @@ const ReviewForm = () => {
         {/* Table View */}
         {!selectedDoctor && (
             <>
-            <h2> className="review-title">Reviews</h2>
+            <h2 className="review-title">Reviews</h2>
 
         <table className="review-table">
             <thead>
