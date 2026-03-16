@@ -4,6 +4,9 @@ import React from "react";
 // Import InstantConsultation.js
 import InstantConsultation from "./Components/InstantConsultation/InstantConsultation";
 
+// Import ReviewFormApp.js
+import ReviewFormApp from "./Components/ReviewForm/ReviewFormApp";
+
 // Import ReviewForm.js
 import ReviewForm from "./Components/ReviewForm/ReviewForm";
 
@@ -37,6 +40,7 @@ function App() {
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/instant-consultation" element={<InstantConsultation />} />
         <Route path="/reviews" element={<ReviewForm />} />
+        <Route path="/reviews" element={<ReviewFormApp />} />
       </Routes>
 
       </Notification>
