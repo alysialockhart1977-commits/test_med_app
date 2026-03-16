@@ -1,14 +1,17 @@
+/* Reviews page container */
 .review-container {
     width: 92%;
     margin: 120px auto 40px auto;
   }
   
+  /* Reviews page title */
   .reviews-title {
     font-size: 64px;
     font-weight: 700;
-    margin-bottom: 26px;
+    margin-bottom: 30px;
   }
   
+  /* Table styling */
   .review-table {
     width: 100%;
     border-collapse: collapse;
@@ -23,12 +26,14 @@
     vertical-align: middle;
   }
   
+  /* Table header */
   .review-table th {
     font-weight: 700;
     font-size: 18px;
     background-color: #f3f3f3;
   }
   
+  /* Feedback button */
   .feedback-btn {
     min-width: 160px;
     height: 56px;
@@ -40,16 +45,19 @@
     font-size: 16px;
   }
   
+  /* Hover effect */
   .feedback-btn:hover {
     background-color: #1565c0;
   }
   
+  /* Disabled button after submission */
   .feedback-btn:disabled {
     background-color: #9ec5f8;
     color: white;
     cursor: not-allowed;
   }
   
+  /* Review test cell */
   .review-given-cell {
     max-width: 260px;
     white-space: normal;
@@ -58,12 +66,14 @@
     font-size: 16px;
   }
   
+  /* Center the Give Review form */
   .review-form-page {
     display: flex;
     justify-content: center;
     margin-top: 20px;
   }
   
+  /* Form card */
   .review-form-card {
     width: 540px;
     background: #f5f5f5;
@@ -71,6 +81,7 @@
     border-radius: 10px;
   }
   
+  /* Form title */
   .give-review-title {
     text-align: center;
     font-size: 32px;
@@ -78,20 +89,22 @@
     margin-bottom: 24px;
   }
   
+  /* Form Layout */
   .review-form-card form {
     display: flex;
     flex-direction: column;
   }
   
+  /* Labels */
   .review-form-card label {
     display: block;
     font-weight: 600;
     font-size: 16px;
     margin-top: 14px;
     margin-bottom: 8px;
-    text-align: left;
   }
   
+  /* Input fields */
   .review-form-card input,
   .review-form-card textarea {
     width: 100%;
@@ -102,28 +115,35 @@
     box-sizing: border-box;
   }
   
+  /* Review textarea height */
   .review-form-card textarea {
     min-height: 120px;
     resize: vertical;
   }
   
+  /* Rating stars container */
   .rating-stars {
     margin-top: 6px;
     margin-bottom: 14px;
-    text-align: left;
   }
   
+  /* Star buttons */
   .star {
+    background: none;
+    border: none;
+    padding: none;
     font-size: 30px;
     cursor: pointer;
     color: #ccc;
     margin-right: 6px;
   }
   
+  /* Selected star color */
   .selected-star {
     color: gold;
   }
   
+  /* Submit button */
   .submit-btn {
     width: 100%;
     background: #1e88f5;
@@ -135,10 +155,10 @@
     cursor: pointer;
     font-size: 16px;
   }
-  
+
+  /* Warning text */
   .warning {
     color: red;
     font-size: 14px;
-    margin-bottom: 8px;
-    text-align: left;
+    margin-bottom: 10px;
   }

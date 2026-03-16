@@ -1,8 +1,15 @@
+// Import React and useState hook
 import React, { useState } from "react";
+
+// Import Css file for styling
 import "./ReviewForm.css";
+
+// Import the GiveReviews component which contains the feedback form
 import GiveReviews from "./GiveReviews";
 
+// Function component to display the Reviews page
 const ReviewForm = () => {
+   
     // Sample consultation data with review status/message
     const [reviews, setReviews] = useState([
         {
@@ -11,7 +18,6 @@ const ReviewForm = () => {
         speciality: "Cardiology",
         reviewGiven: false,
         reviewMessage: "",
-        submittedReview: null,
         },
         {
         id: 2,
@@ -19,47 +25,57 @@ const ReviewForm = () => {
         speciality: "Dermatology",
         reviewGiven: false,
         reviewMessage: "",
-        submittedReview: null,
         },
     ]);
 
-    // Track which doctor is selected for review form
+    // Track which doctor review form is currently open
     const [selectedDoctorId, setSelectedDoctorId] = useState(null);
 
-    // Open feedback form for selected doctor
+    // Function triggered when the "Click Here" button is pressed
+    // Open feedback/review form for selected doctor
     const handleFeedbackClick = (doctorId) => {
         setSelectedDoctorId(doctorId);
     };
 
+    // Function to receive submitted review data from GiveReviews component
+    const handleReviewSubmit = (doctorId, formData) => {
 
-    // Save submitted review, disable button, return to table
-    const handleReviewSubmit = (doctorId, submittedData) => {
-        const updatedReviews = reviews.map((review) =>
-        review.id === doctorId
-        ? {
+        // Update the review list by marking the review as submitted
+        const updatedReviews = reviews.map((review) => {
+        if (review.id === doctorId) {
+            return {
             ...review,
-            reviewGiven: true,
-            reviewMessage: submittedData.review,
-            submittedReview: submittedData,
-        }
-        : review
-    );
+            reviewGiven: true,                      // Mark review as submitted
+            reviewMessage: formData.review          // Store the review text    
+        };
+    }
+    return review;
+ });
 
-    setReviews(updatedReviews);
-    setSelectedDoctorId(null);
-  };
+ // Update the reviews state    
+ setReviews(updatedReviews);
 
+ // Close the review form and return to reviews pate
+ setSelectedDoctorId(null);
+};
+
+// Find the doctor whose review form should currently be displayed
   const selectedDoctor = reviews.find(
     (review) => review.id === selectedDoctorId
   );
+
      return (
       <div className="review-container">
-        {/* Table View */}
+
+        {/* Display the Reviews table only when the form is not open */}
         {!selectedDoctor && (
             <>
+            {/* Page Title */}
             <h2 className="review-title">Reviews</h2>
+     
+            {/* Reviews Table */}
+            <table className="review-table">
 
-        <table className="review-table">
             <thead>
                 <tr>
                     <th>Serial Number</th>
@@ -73,10 +89,12 @@ const ReviewForm = () => {
             <tbody>
              {reviews.map((review) => (
                 <tr key={review.id}>
+
                     <td>{review.id}</td>
                     <td>{review.doctorName}</td>
                     <td>{review.speciality}</td>
 
+                    {/* Feedback Button */}
                     <td>
                         <button
                         className="feedback-btn"
@@ -87,6 +105,7 @@ const ReviewForm = () => {
                         </button>
                     </td>
 
+                    {/* Display sumbitted review message */}
                     <td classNumber="review-given-cell">
                         {review.reviewGiven ? review.reviewMessage : ""}                  
                     </td>                             
@@ -96,7 +115,7 @@ const ReviewForm = () => {
          </table>
          </>
         )}
-        {/* Form View */}
+        {/* Display the GiveReviews form when a doctor is selected */}
         {selectedDoctor && (
             <GiveReviews
             doctor={selectedDoctor}

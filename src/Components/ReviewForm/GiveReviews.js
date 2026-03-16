@@ -1,103 +1,152 @@
+// Import React and useState hook
 import React, { useState } from "react";
+
+//Import CSS for styling
 import "./ReviewForm.css";
 
-
-// Function component for giving reviews
+// Function component to display the review form
 function GiveReviews({ doctor, onSubmitReview }) {
-   //State variables using useState hook
-   const [showWarning, setShowWarning] = useState(false);
-    
+
+    // Store to display warning message if form fields are incomplete
+    const [showWarning, setShowWarning] = useState(false);
+
+    // Store form input values
     const [formData, setFormData] = useState({
         name: "",
         review: "",
-        rating: 0,
+        rating: 0
     });
 
-    // Function to handle form input changes
-    const handleChange = (e) => { 
-        setFormData({ ...formData, [e.target.name]: e.target.value, 
-        });
-    };
+    // Function to handle text input changes
+    const handleChange = (e) => {
+        setFormData({
+          ...formData,
+         [e.target.name]: e.target.value
+    });
+  }; 
+  
+  // Function to handle star rating selection
+  const handleRatingClick = (value) => {
+    setFormData({
+        ...formData,
+        rating: value
+    });
+};
 
-    // Function to handle rating star click
-    const handleRatingClick = (value) => {
-        setFormData({ ...formData, rating: value, 
-        });
-    };
+// Submit logic for form submission
+const handleSubmit = (e) => {
 
-    // Submit review and return to ReviewForm table
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // Prevent page refresh
+    e.preventDefault();
 
-    // Check if all required fields are filled before submission
-    if (formData.name && formData.review && formData.rating > 0) {
-        setShowWarning(false); 
+    // Validate required fields
+    if (!formData.name || !formData.review || formData.rating === 0) {
+      setShowWarning(true);
+      return;
+    }
 
-        // Send review back to ReviewForm
-        onSubmitReview(doctor.id, formData);
+    // Hide warning if validation passes
+    setShowWarning(false);
 
-         // Reset form
-      setFormData({
+    // Send review data to parent component (ReviewForm)
+    onSubmitReview(doctor.id, formData);
+
+    // Reset the form fields
+    setFormData({
         name: "",
         review: "",
-        rating: 0,
-      });
-    } else {
-      setShowWarning(true);
-    }
+        rating: 0
+    });
 };
 
 return (
     <div className="review-form-page">
+
         <div className="review-form-card">
-      <h2 className="give-review-title">Give Your Review</h2>
+
+            {/* Form Title */}
+            <h2 className="give-review-title">Give Your Review</h2>
+
+            {/* Warning message */}
+            {showWarning && (
+                <p className="warning">Please fill out all fields.</p>
+            )}
+
+            {/* Review Form */}
+            <form onSubmit={handleSubmit}>
+
+                {/* Name Input */}
+                <label htmlFor="name">Name:</label>
+                <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                />
+
+                {/* Review Input */}
+                <label htmlFor="review">Review:</label>
+                <textarea
+                id="review"
+                name="review"
+                value={formData.review}
+                onChange={handleChange}
+                />
+
+                {/* Rating Selector */}
+                <label>Rating:</label>
+                <div className="rating-stars">
+
+                    {/* Create 5 clickable stars */}
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                           type="button"
+                           key={star}
+                           className={
+                            star <= formData.rating
+                            ? "star selected-star"
+                            : "star"
+                     }
+                     onClick={() => handleRatingClick(star)}
+                     >
+                       ★
+              </button>
+            ))}
+
+            </div>
+
+            {/* Submit Button */}
+            <button type="submit" className="submit=btn">
+                Submit
+            </button>
+
+            </form>
+         
+           </div>
+
+         </div>
+
+        );
+    }
+
+    // Export the component
+    export default GiveReviews;
 
 
-      {/* Display warning message if not all fields are filled */}
-      {showWarning && (
-      <p className="warning">Please fill out all fields and select a rating.</p>
-    )}
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
 
-        <label htmlFor="review">Review:</label>
-        <textarea
-          id="review"
-          name="review"
-          value={formData.review}
-          onChange={handleChange}
-        />
+
+
+
+
+
+
+
+      
+
+
+    
+
+
         
-        <label>Rating:</label>
-        <div className="rating-stars">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <span
-              key={star}
-              className={star <= formData.rating ? "star selected-star" : "star"}
-              onClick={() => handleRatingClick(star)}
-            >
-              ★
-            </span>
-          ))}
-        </div>
-
-        {/* Submit button for form submission */}
-        <button type="submit" className="submit-btn">
-        
-        Submit
-        </button>
-      </form>
-    </div>
-    </div>
-  );
-}
-
-export default GiveReviews;
