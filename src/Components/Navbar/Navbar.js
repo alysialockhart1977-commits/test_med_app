@@ -1,21 +1,31 @@
 import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
- 
 
+// Import ProfileCard
+import ProfileCard from "../ProfileCard/ProfileCard";
+ 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  // Create state for showing/hiding the dropdown
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+
   const navigate = useNavigate();
  // Read auth info from sessionStorage
   const authToken = sessionStorage.getItem("auth-token");
   const storedEmail = sessionStorage.getItem("email");
-  // Extract name before @ (ex: peter@email.com -> peter)
+  const storedName = sessionStorage.getItem("name");
+  const storedPhone = sessionStorage.getItem("phone");
+
+  // Extract user from email if name is not available before @ (ex: peter@email.com -> peter)
   const username = useMemo(() => {
+    if (storedName) return storedName;
     if (!storedEmail) return "";
     return storedEmail.split("@")[0]; // everything before @
-  }, [storedEmail]);
+  }, [storedName, storedEmail]);
 
   const handleMenuToggle = () => setIsOpen((prev) => !prev);
+
   const handleLogout = () => {
     sessionStorage.removeItem("auth-token");
     sessionStorage.removeItem("name");
@@ -24,6 +34,10 @@ function Navbar() {
 
     navigate("/login");
     window.location.reload();
+  };
+
+  const handleProfileToggle = () => {
+    setShowProfileDropdown((prev) => !prev);
   };
 
   return (
@@ -67,10 +81,22 @@ function Navbar() {
           {/* If logged in, show Welcome + Logout */}
           {authToken ? (
             <>
-              <li className="link welcome-user">
-                <span>{`Welcome, ${username}`}</span>
-              </li>
+              <li className="link profile-menu">
+                <span className="welcome-user" onClick={handleProfileToggle}>
+                Welcome, {username}
+                </span>
 
+              {showProfileDropdown && (
+                <div className="profile-dropdown">
+                    <ProfileCard
+                    userName={username}
+                    email={storedEmail}
+                    phone={storedPhone}
+                    />
+                    </div>
+              )}
+                    </li>
+                    
               <li className="link">
                 <button className="btn2" onClick={handleLogout}>
                   Logout
