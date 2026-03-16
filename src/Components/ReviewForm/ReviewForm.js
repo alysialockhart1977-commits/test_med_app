@@ -16,6 +16,7 @@ const ReviewForm = () => {
         id: 1,
         doctorName: "Dr. John Doe",
         speciality: "Cardiology",
+        appointmentDate: "2026-03-10",
         reviewGiven: false,
         reviewMessage: "",
         },
@@ -23,9 +24,34 @@ const ReviewForm = () => {
         id: 2,
         doctorName: "Dr. Jane Smith",
         speciality: "Dermatology",
+        appointmentDate: "2026-03-12",
         reviewGiven: false,
         reviewMessage: "",
         },
+        {
+        id: 3, 
+        doctorName: "Dr. Jio Yang",
+        speciality: "General Practioner",
+        appointmentDate: "2026-04-03",
+        reviewGiven: false,
+        reviewMessage: "",
+        },
+        {
+        id: 4,
+        doctorName: "Dr. Ramond Steel",
+        speciality: "Chiropractor",
+        appointmentDate: "2026-04-18",
+        reviewGiven: false,
+        reviewMessage: "",
+        },
+        {
+        id: 4,
+        doctorName: "Dr. Jio Yang",
+        speciality: "General Practioner",
+        appointmentDate: "2026-04-30",
+        reviewGiven: false,
+        reviewMessage: "",
+        }
     ]);
 
     // Track which doctor review form is currently open
@@ -81,6 +107,7 @@ const ReviewForm = () => {
                     <th>Serial Number</th>
                     <th>Doctor Name</th>
                     <th>Doctor Speciality</th>
+                    <th>Appointment Date</th>
                     <th>Provide feedback</th>
                     <th>Review Given</th>
                 </tr>
@@ -93,6 +120,7 @@ const ReviewForm = () => {
                     <td>{review.id}</td>
                     <td>{review.doctorName}</td>
                     <td>{review.speciality}</td>
+                    <td>{review.appointmentDate}</td>
 
                     {/* Feedback Button */}
                     <td>
