@@ -10,6 +10,9 @@ import ReviewFormApp from "./Components/ReviewForm/ReviewFormApp";
 // Import ReviewForm.js
 import ReviewForm from "./Components/ReviewForm/ReviewForm";
 
+// Import ProfileForm.js
+import ProfileForm from "./Components/ProfileCard/ProfileForm";
+
 // Import CSS
 import "./App.css";
 
@@ -41,6 +44,7 @@ function App() {
         <Route path="/instant-consultation" element={<InstantConsultation />} />
         <Route path="/reviews" element={<ReviewForm />} />
         <Route path="/reviews" element={<ReviewFormApp />} />
+        <Route path="/profile" element={<ProfileForm />} />
       </Routes>
 
       </Notification>

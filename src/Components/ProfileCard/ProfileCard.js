@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./ProfileCard.css";
 
 const ProfileCard = ({ userName, email, phone }) => {
@@ -11,6 +12,10 @@ const ProfileCard = ({ userName, email, phone }) => {
                 <p><strong>Email:</strong> {email}</p>
                 <p><strong>Phone:</strong> {phone}</p>
             </div>
+
+            <Link to="/profile" className="profile-link-btn">
+                Open Profile
+                </Link>
         </div>
     );
 };
