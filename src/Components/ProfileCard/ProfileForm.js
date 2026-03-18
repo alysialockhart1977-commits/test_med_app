@@ -4,7 +4,7 @@ import { API_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
 import "./ProfileCard.css"
 
-// Define a Function component called ProfileForm
+// Function component
 const ProfileForm = () => {
   // Set up state variables using the useState hook
   const [userDetails, setUserDetails] = useState({});
@@ -14,7 +14,7 @@ const ProfileForm = () => {
   // Access the navigation functionality from React Router
   const navigate = useNavigate();
   
-  // Use the useEffect hook to fetch user profile data when the component mounts or updates
+  // Fetch user profile on Load
   useEffect(() => {
     const authtoken = sessionStorage.getItem("auth-token");
    
@@ -26,21 +26,19 @@ const ProfileForm = () => {
  // esLint-disable-next-Line react-hooks/exhaustive-deps
   }, [navigate]);
 
-  // Function to fetch user profile data from the API
+  // Fetch profile data from backend
   const fetchUserProfile = async () => {
     try {
       const authtoken = sessionStorage.getItem("auth-token");
       const email = sessionStorage.getItem("email"); // Get the email from session storage
 
-      if (!authtoken) {
-        navigate("/login");
-      } else {
-        const response = await fetch(`${API_URL}/api/auth/user`, {
-          headers: {
+      const response = await fetch(`${API_URL}/api/auth/user`, {
+        headers: { 
             "Authorization": `Bearer ${authtoken}`,
             "Email": email, // Add the email to the headers
           },
         });
+
         if (response.ok) {
           const user = await response.json();
           setUserDetails(user);
@@ -49,10 +47,9 @@ const ProfileForm = () => {
           // Handle error case
           throw new Error("Failed to fetch user profile");
         }
-      }
     } catch (error) {
-      console.error(error);
-      // Handle error case
+      console.error(error);  // Handle error case
+
     }
   };
 
@@ -61,7 +58,7 @@ const ProfileForm = () => {
     setEditMode(true);
   };
 
-  // Function to update state when user inputs new data
+  // Function handles input changes
   const handleInputChange = (e) => {
     setUpdatedDetails({
       ...updatedDetails,
@@ -82,8 +79,6 @@ const ProfileForm = () => {
         return;
       }
 
-      const payload = { ...updatedDetails };
-
       const response = await fetch(`${API_URL}/api/auth/user`, {
         method: "PUT",
         headers: {
@@ -91,16 +86,16 @@ const ProfileForm = () => {
           "Content-Type": "application/json",
           "Email": email,
         },
-        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
-        // Update the user details in session storage
+        // Save updated data Locally
         sessionStorage.setItem("name", updatedDetails.name || "");
         sessionStorage.setItem("phone", updatedDetails.phone || "");
-
+        
+        // Function to return page to view mode
         setUserDetails(updatedDetails);
-        setEditMode(false);
+        setEditMode(false);      
         
         // Display success message to the user
         alert(`Profile Updated Successfully!`);
@@ -115,7 +110,7 @@ const ProfileForm = () => {
     }
   };
 
-  // Render the profile form with different sections based on edit mode
+  // UI Render the profile form with different sections based on edit mode
   return (
     <div className="profile-container">
       {editMode ? (
@@ -156,8 +151,10 @@ const ProfileForm = () => {
           <button type="submit">Save</button>
         </form>
       ) : (
+        // VIEW MODE
         <div className="profile-details">
-          <h1>Welcome, {userDetails.name}</h1>
+          <h1>Your Profile</h1>
+          <p><strong>Name:</strong> {userDetails.name}</p>
           <p><strong>Email:</strong> {userDetails.email}</p>
           <p><strong>Phone:</strong> {userDetails.phone}</p>
           
