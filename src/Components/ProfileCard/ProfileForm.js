@@ -14,7 +14,7 @@ const ProfileForm = () => {
   // Access the navigation functionality from React Router
   const navigate = useNavigate();
   
-  // Fetch user profile on Load
+  // Load profile data when component mounts
   useEffect(() => {
     const authtoken = sessionStorage.getItem("auth-token");
    
@@ -26,12 +26,25 @@ const ProfileForm = () => {
  // esLint-disable-next-Line react-hooks/exhaustive-deps
   }, [navigate]);
 
-  // Fetch profile data from backend
+  // Fetch profile data from backend if possible, otherwise use sessionStorage
   const fetchUserProfile = async () => {
+    const fallbackUser ={
+        name: sessionStorage.getItem("name") || "",
+        email: sessionStorage.getItem("email") || "",
+        phone: sessionStorage.getItem("phone") || "",
+    };
+  
     try {
       const authtoken = sessionStorage.getItem("auth-token");
       const email = sessionStorage.getItem("email"); // Get the email from session storage
 
+      if (!authtoken || !email) {
+        setUserDetails(fallbackUser);
+        setUpdatedDetails(fallbackUser);
+
+        return;
+      }
+     
       const response = await fetch(`${API_URL}/api/auth/user`, {
         headers: { 
             "Authorization": `Bearer ${authtoken}`,
@@ -49,16 +62,18 @@ const ProfileForm = () => {
         }
     } catch (error) {
       console.error(error);  // Handle error case
+      setUserDetails(fallbackUser);
+      setUpdatedDetails(fallbackUser);
 
     }
   };
 
-  // Function to enable edit mode for profile details
+  // Switch to edit mode
   const handleEdit = () => {
     setEditMode(true);
   };
 
-  // Function handles input changes
+  // Update form fields while typing
   const handleInputChange = (e) => {
     setUpdatedDetails({
       ...updatedDetails,
@@ -66,19 +81,23 @@ const ProfileForm = () => {
     });
   };
 
-  // Function to save updated profile details
+  // Save profile with backend attempt + Local fallback
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Always update Locally first so UI changes no matter what
+    sessionStorage.setItem("name", updatedDetails.name || "");
+    sessionStorage.setItem("phone", updatedDetails.phone || "");
+    sessionStorage.setItem("email", updatedDetails.email || "");
+
+    setUserDetails(updatedDetails);
+    setEditMode(false);
 
     try {
       const authtoken = sessionStorage.getItem("auth-token");
       const email = sessionStorage.getItem("email"); // Get the email from session storage
 
-      if (!authtoken || !email) {
-        navigate("/login");
-        return;
-      }
-
+      if (!authtoken && email) { 
       const response = await fetch(`${API_URL}/api/auth/user`, {
         method: "PUT",
         headers: {
@@ -86,34 +105,29 @@ const ProfileForm = () => {
           "Content-Type": "application/json",
           "Email": email,
         },
+        body: JSON.stringify(updatedDetails),
       });
 
       if (response.ok) {
-        // Save updated data Locally
-        sessionStorage.setItem("name", updatedDetails.name || "");
-        sessionStorage.setItem("phone", updatedDetails.phone || "");
-        
-        // Function to return page to view mode
-        setUserDetails(updatedDetails);
-        setEditMode(false);      
-        
+        throw new Error("Backend update failed");
+      }
+    }
         // Display success message to the user
         alert(`Profile Updated Successfully!`);
-        navigate("/");
-      } else {
-        // Handle error case
-        throw new Error("Failed to update profile");
-      }
-    } catch (error) {
-      console.error(error);
+      } catch (error) {
+      console.error("Profile update failed:", error);
       // Handle error case
+      alert("Profile updated locally.");
     }
+    navigate("/");
+    window.location.reload();
   };
 
   // UI Render the profile form with different sections based on edit mode
   return (
     <div className="profile-container">
       {editMode ? (
+        // Edit modeE
         <form className="profile-form" onSubmit={handleSubmit}>
             <h2>Your Profile</h2>
 
@@ -168,3 +182,4 @@ const ProfileForm = () => {
 
 // Export the ProfileForm component as the default export
 export default ProfileForm;
+   
