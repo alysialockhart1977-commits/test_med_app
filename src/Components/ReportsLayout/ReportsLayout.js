@@ -61,8 +61,8 @@ return (
             ))}
         </tbody>
      </table>
- </div>
-);
+   </div>
+  );
 };
 
 export default ReportsLayout;

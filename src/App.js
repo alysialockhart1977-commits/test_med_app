@@ -13,6 +13,9 @@ import ReviewForm from "./Components/ReviewForm/ReviewForm";
 // Import ProfileForm.js
 import ProfileForm from "./Components/ProfileCard/ProfileForm";
 
+// Import ReportsLayout.js
+import ReportsLayout from "./Components/ReportsLayout/ReportsLayout";
+
 // Import CSS
 import "./App.css";
 
@@ -45,6 +48,7 @@ function App() {
         <Route path="/reviews" element={<ReviewForm />} />
         <Route path="/reviews" element={<ReviewFormApp />} />
         <Route path="/profile" element={<ProfileForm />} />
+        <Route path="/reports" element={ReportsLayout />} />
       </Routes>
 
       </Notification>

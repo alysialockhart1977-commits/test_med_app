@@ -13,8 +13,14 @@ const ProfileCard = ({ userName, email, phone }) => {
                 <p><strong>Phone:</strong> {phone}</p>
             </div>
 
+            // Adds Profile to Navbar dropdown
             <Link to="/profile" className="profile-link-btn">
                 Open Profile
+                </Link>
+                
+            // Adds Reports to Navbar dropdown
+            <Link to="/reports" className="profile-link-btn">
+                Your Reports
                 </Link>
         </div>
     );
