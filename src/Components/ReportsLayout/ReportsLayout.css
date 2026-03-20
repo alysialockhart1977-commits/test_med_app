@@ -1,6 +1,6 @@
 .reports-container {
     width: 92%;
-    margin: 120px auto 40 px auto;
+    margin: 120px auto 40px auto;
 }
 
 .reports-title {
@@ -29,6 +29,12 @@
     background-color: #f3f3f3;
 }
 
+.reports-table th:first-child,
+.reports-table td:first-child {
+    width: 140px;
+    padding-left: 40px;
+}
+
 .report-btn {
     min-width: 150px;
     padding: 12px 18px;
@@ -43,3 +49,4 @@
 .report-btn:hover {
     background-color: #1565c0;
 }
+

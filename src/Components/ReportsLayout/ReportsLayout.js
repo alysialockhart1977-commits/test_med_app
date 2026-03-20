@@ -16,7 +16,13 @@ const ReportsLayout = () => {
     },
 ];
 
+// View report
 const handleViewReport = (doctorName) => {
+    alert(`Viewing report for ${doctorName}`);
+};
+
+// Download report
+const handleDownloadReport = (doctorName) => {
     alert(`Downloading report for ${doctorName}`);
 };
 
@@ -36,7 +42,7 @@ return (
             </thead>
 
             <tbody>
-                {reports.map((report) = (
+                {reports.map((report) => (
                     <tr key={report.id}>
                        <td>{report.id}</td>
                        <td>{report.doctorName}</td>
@@ -60,6 +66,7 @@ return (
                 </tr>
             ))}
         </tbody>
+        
      </table>
    </div>
   );
