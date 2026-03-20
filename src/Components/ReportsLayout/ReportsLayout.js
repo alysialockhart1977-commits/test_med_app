@@ -8,27 +8,20 @@ const ReportsLayout = () => {
       id: 1,
       doctorName: "Dr. John Doe",
       speciality: "Cardiology",
+      reportFile: "/patient_report.pdf",
     },
     {
         id: 2,
         doctorName: "Dr. Jane Smith",
         speciality: "Dermatology",
+        reportFile: "/patient_report.pdf",
     },
 ];
-
-// View report
-const handleViewReport = (doctorName) => {
-    alert(`Viewing report for ${doctorName}`);
-};
-
-// Download report
-const handleDownloadReport = (doctorName) => {
-    alert(`Downloading report for ${doctorName}`);
-};
 
 return (
     <div className="reports-container">
         <h2 className="reports-title">Reports</h2>
+
 
         <table className="reports-table">
             <thead>
@@ -47,29 +40,33 @@ return (
                        <td>{report.id}</td>
                        <td>{report.doctorName}</td>
                        <td>{report.speciality}</td>
+
                        <td>
-                        <button
-                        className="report-btn"
-                        onClick={() => handleViewReport(report.doctorName)}
-                        >
+                        <a
+                          href={report.reportFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="report-btn-link"
+                          >
                             View Report
-                        </button>
+                            </a>
                         </td>
+
                         <td>
-                            <button
-                            className="report-btn"
-                            onClick={() => handleDownloadReport(report.doctorName)}
+                            <a
+                            href={report.reportFile}
+                            download="patient_report.pdf"
+                            className="report-btn-link"
                             >
-                             Download Report
-                         </button>
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-        
-     </table>
-   </div>
-  );
+                                Download Report
+                                </a>
+                            </td>
+                        </tr>
+                     ))}
+                </tbody>
+            </table>
+        </div>
+    ); 
 };
 
 export default ReportsLayout;
