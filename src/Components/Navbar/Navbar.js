@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ProfileCard from "../ProfileCard/ProfileCard";
 import "./Navbar.css";
 
-// Import ProfileCard
-import ProfileCard from "../ProfileCard/ProfileCard";
  
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,24 +10,29 @@ function Navbar() {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   const navigate = useNavigate();
- // Read auth info from sessionStorage
+
+  // Read user data from sessionStorage
   const authToken = sessionStorage.getItem("auth-token");
   const storedEmail = sessionStorage.getItem("email");
   const storedName = sessionStorage.getItem("name");
   const storedPhone = sessionStorage.getItem("phone");
 
-  // Extract user from email if name is not available before @ (ex: peter@email.com -> peter)
-  const username = useMemo(() => {
+  // Use stored name if available, otherwise derive it from email
+  const username = useMemo()) => {
     if (storedName) return storedName;
-    if (!storedEmail) return "";
-    return storedEmail.split("@")[0]; // everything before @
+    if (storedEmail) return storedEmail.split("@")[0];
+ return "";
   }, [storedName, storedEmail]);
 
-  const handleMenuToggle = () => setIsOpen((prev) => !prev);
+  // Toggle mobile menu
+  const handleMenuToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
 
+  // Logout user
   const handleLogout = () => {
     sessionStorage.removeItem("auth-token");
-    sessionStorage.removeItem("name");
+    sessionStorage.rmoveItem("name");
     sessionStorage.removeItem("phone");
     sessionStorage.removeItem("email");
 
@@ -36,19 +40,20 @@ function Navbar() {
     window.location.reload();
   };
 
+  // Toggle profile dropdown
   const handleProfileToggle = () => {
     setShowProfileDropdown((prev) => !prev);
   };
 
   return (
-    <div className="navbar">
+     <div className="navbar">
       <nav>
-        <div className="nav__logo">
+        <div className="nav_logo">
           <Link to="/">
             StayHealthy
             <svg
               xmlns="http://www.w3.org/2000/svg"
-               height="26"
+              height="26"
               width="26"
               viewBox="0 0 1000 1000"
               style={{ fill: "#3685fb" }}
@@ -88,15 +93,13 @@ function Navbar() {
 
               {showProfileDropdown && (
                 <div className="profile-dropdown">
-                    <ProfileCard
-                    userName={username}
-                    email={storedEmail}
-                    phone={storedPhone}
-                    />
+
+                    {/* ProfileCard inside dropdown */}
+                    <ProfileCard />
                     </div>
               )}
-                    </li>
-                    
+              </li>
+
               <li className="link">
                 <button className="btn2" onClick={handleLogout}>
                   Logout
