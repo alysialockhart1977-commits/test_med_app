@@ -15,10 +15,9 @@ function Navbar() {
   const authToken = sessionStorage.getItem("auth-token");
   const storedEmail = sessionStorage.getItem("email");
   const storedName = sessionStorage.getItem("name");
-  const storedPhone = sessionStorage.getItem("phone");
 
   // Use stored name if available, otherwise derive it from email
-  const username = useMemo()) => {
+  const username = useMemo(() => {
     if (storedName) return storedName;
     if (storedEmail) return storedEmail.split("@")[0];
  return "";
