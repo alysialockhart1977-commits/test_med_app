@@ -7,21 +7,19 @@ import './Notification.css';
 const Notification = ({ children }) => {
   // State variables to manage user authentication, username, doctor data, and appointment data
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [doctorData, setDoctorData] = useState(null);
   const [appointmentData, setAppointmentData] = useState(null);
 
-  // State variable to control whether notification should be displayed
-  const [showNotification, setShowNotification] = useState(false);
-
-  // Load stored Login, doctor, and appointment details on first render
+  // Load stored appointment details when component first renders
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
+    
     const storedAppointmentData = storedDoctorData
-    ? JSON.parse(localStorage.getItem(storedDoctorData?.name))
+    ? JSON.parse(localStorage.getItem(storedDoctorData.name))
     : null; // Prevents undefined lookups
     
-
     // If user is Logged in update state
     if (storedUsername) {
         setIsLoggedIn(true);   
@@ -37,18 +35,13 @@ const Notification = ({ children }) => {
     }
 }, []);
 
-// Listen for booking event and show notification immediately
+// Show notification immediately after booking
 useEffect(() => {
     const handleBooked = () => {
-        const storedUsername = sessionStorage.getItem('email');
         const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-        const storedAppointmentData = JSON.parse(
-            localStorage.getItem(storedDoctorData?.name)
-        );
-
-        if (storedUsername) {
-            setIsLoggedIn(true);
-        }
+        const storedAppointmentData = storedDoctorData
+           ? JSON.parse(localStorage.getItem(storedDoctorData.name))
+           : null;
 
         if (storedDoctorData) {
             setDoctorData(storedDoctorData);
@@ -67,7 +60,7 @@ useEffect(() => {
     };
 }, []);
 
-// Listen for cancelation event and hide notification
+// Hide notification after cancellation
 useEffect(() => {
     const handleCancel = () => {
         setShowNotification(false);

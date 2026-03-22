@@ -1,36 +1,41 @@
-/* Container that positions the notification on the screen */
+/* Container that positions the card under the navbar and keeps it from covering the page header */
 .notification-container {
     position: fixed;
-    top: 90px;
-    right: 25px;
-    z-index: 9999;
+    top: 95px;
+    right: 24px;
+    z-index: 1000;
 }
 
 /* Blue appointment card */
 .notification-card {
-    width: 360px;
-    background: #2f86d6;
-    color: white;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0px 6px 16px rgba(0,0,0,0.25);
-    font-family: "Poppins", sans-serif;
+    width: 560px;
+    background: #2f8ee5;
+    color: #ffffff;
+    padding: 26px 30px;
+    border-radius: 4px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.18);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Title */
+/* Title matches the sample look */
 .notification-card h2 {
-    font-size: 22px;
+    margin: 0 0 22px 0;
+    font-size: 30px;
     font-weight: 700;
-    margin-bottom: 15px;
+    line-height: 1.2;
+    color: #ffffff;
 }
 
-/* Text lines */
+/* Body text spacing and sizing */
 .notification-card p {
-    font-size: 16px;
-    margin: 6px 0;
+    margin: 0 0 14px 0;
+    font-size: 19px;
+    line-height: 1.45;
+    color: #ffffff;
 }
 
-/* Bold labels */
+/* Bold labels like Doctor:, Speciality:, etc. */
 .notification-card strong {
-    font-weight: 600;
+    font-weight: 700;
+    color: #ffffff;
 }
