@@ -20,8 +20,11 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
     );
     setAppointments(updatedAppointments);
 
-    // Notification disappears when appointment cancelled
+    // Remove saved appointment and doctor notification data when appointment is cancelled
     localStorage.removeItem(name);
+    localStorage.removeItem("doctorData");
+
+    // Hide notification
     window.dispatchEvent(new Event("appointmentCancelled"));
   };
 

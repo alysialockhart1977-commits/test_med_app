@@ -14,56 +14,38 @@ const Notification = ({ children }) => {
   // Load stored appointment details when component first renders
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
-    const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-    
-    const storedAppointmentData = storedDoctorData
-    ? JSON.parse(localStorage.getItem(storedDoctorData.name))
-    : null; // Prevents undefined lookups
-    
-    // If user is Logged in update state
-    if (storedUsername) {
-        setIsLoggedIn(true);   
-    }  
-    
-    if (storedDoctorData) {
-        setDoctorData(storedDoctorData)
-    }
 
-    if (storedAppointmentData) {
-        setAppointmentData(storedAppointmentData);
-        setShowNotification(true);
+    if (storedUsername) {
+        setIsLoggedIn(true);
     }
 }, []);
 
-// Show notification immediately after booking
 useEffect(() => {
     const handleBooked = () => {
-        const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
-        const storedAppointmentData = storedDoctorData
-           ? JSON.parse(localStorage.getItem(storedDoctorData.name))
-           : null;
+    const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
+    const storedAppointmentData = storedDoctorData
+    ? JSON.parse(localStorage.getItem(storedDoctorData.name))
+    : null; // Prevents undefined lookups
 
-        if (storedDoctorData) {
-            setDoctorData(storedDoctorData);
-        }
+    // If user is Logged in update state
+    if (storedDoctorData && storedAppointmentData) {
+        setDoctorData(storedDoctorData);
+        setAppointmentData(storedAppointmentData);
+        setShowNotification(true);   
+    }
+};
+window.addEventListener("appointmetBooked", handleBooked);
 
-        if (storedAppointmentData) {
-            setAppointmentData(storedAppointmentData);
-            setShowNotification(true);
-        }
-    };
-
-    window.addEventListener('appointmentBooked', handleBooked);
-
-    return () => {
-        window.removeEventListener('appointmentBooked', handleBooked);
-    };
+return () => {
+    window.removeEventListener("appointmentBooked", handleBooked);
+};
 }, []);
 
 // Hide notification after cancellation
 useEffect(() => {
     const handleCancel = () => {
         setShowNotification(false);
+        setDoctorData(null);
         setAppointmentData(null);
     };
 
