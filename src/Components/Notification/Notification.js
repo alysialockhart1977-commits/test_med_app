@@ -14,27 +14,45 @@ const Notification = ({ children }) => {
   // Load stored appointment details when component first renders
   useEffect(() => {
     const storedUsername = sessionStorage.getItem('email');
+    const storedDoctorData = JSON.parse(localStorage.getItem("doctorData"));
 
+    const storedAppointmentData = storedDoctorData
+      ? JSON.parse(localStorage.getItem(storedDoctorData.name))
+      : null; // Prevents undefined lookups
+ 
     if (storedUsername) {
         setIsLoggedIn(true);
     }
+
+    if (storedDoctorData) {
+        setDoctorData(storedDoctorData);
+    }
+
+    if (storedAppointmentData) {
+        setAppointmentData(storedAppointmentData);
+        setShowNotification(true);
+    }
 }, []);
 
+// Show notification immediately after booking
 useEffect(() => {
     const handleBooked = () => {
     const storedDoctorData = JSON.parse(localStorage.getItem('doctorData'));
     const storedAppointmentData = storedDoctorData
-    ? JSON.parse(localStorage.getItem(storedDoctorData.name))
-    : null; // Prevents undefined lookups
-
-    // If user is Logged in update state
-    if (storedDoctorData && storedAppointmentData) {
+      ? JSON.parse(localStorage.getItem(storedDoctorData.name))
+      : null; // Prevents undefined lookups
+    
+    if (storedDoctorData) {
         setDoctorData(storedDoctorData);
+    }
+
+    if (storedAppointmentData) {
         setAppointmentData(storedAppointmentData);
-        setShowNotification(true);   
+        setShowNotification(true);
     }
 };
-window.addEventListener("appointmetBooked", handleBooked);
+
+window.addEventListener("appointmentBooked", handleBooked);
 
 return () => {
     window.removeEventListener("appointmentBooked", handleBooked);
@@ -45,17 +63,16 @@ return () => {
 useEffect(() => {
     const handleCancel = () => {
         setShowNotification(false);
-        setDoctorData(null);
         setAppointmentData(null);
     };
 
-    window.addEventListener('appointmentCancelled', handleCancel);
+    window.addEventListener("appointmentCancelled", handleCancel);
 
     return () => {
-        window.removeEventListener('appointmentCancelled', handleCancel);
+        window.removeEventListener("appointmentCancelled", handleCancel);
     };
 }, []);
-
+     
 return (
     <div>
         {/* Render Navbar component */}
@@ -64,11 +81,10 @@ return (
         {/* Render child components */}
         {children}
 
-        {/* Display appoinment details if user is Logged in and appoinmentData is available */}
         {isLoggedIn && showNotification && appointmentData && (
-        <div className="notification-container">
-          <div className="notification-card">
-            <h2>Appointment Details</h2>
+            <div className="notification-container">
+                <div className="notification-card">
+                    <h2>Appointment Details</h2>
 
             <p><strong>Doctor:</strong> {doctorData?.name}</p>
             <p><strong>Speciality:</strong> {doctorData?.speciality}</p>
