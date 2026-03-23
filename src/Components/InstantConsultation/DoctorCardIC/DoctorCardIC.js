@@ -45,7 +45,7 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
      // Notify Notification component that appointment was booked
     window.dispatchEvent(new Event("appointmentBooked"));
 
-    // Close popup so the blue notification can be seen on the page
+    // Close popup so only the blue notification card can be seen on the page
     setShowModal(false);
   };
 
