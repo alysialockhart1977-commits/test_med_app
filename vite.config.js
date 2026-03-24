@@ -7,32 +7,11 @@ export default defineConfig({
         react(),
         // viteCompression({ algorithm: 'gzip' }),
     ], 
-    esbuild: {
-        loader: 'jsx',
-        include: /src\/.*\.js$/,
-        exclude: [],
-    },
-    optimizeDeps: {
-        esbuildOptions: {
-            loader: {
-                '.js': 'jsx',
-    },
-  },
-},
-build: {
+   
+    build: {
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
-    rollupOptions: {
-        output: {
-            manualChunks: undefined,
-        },
-    },
-},
-css: {
-    postcss: {},
-  },
+    }
 });
-
-
-
+   
