@@ -19,7 +19,7 @@
     "start": "vite",
     "build": "vite build && rm -rf server/build && mv dist server/build",
     "lint": "eslint .",
-    "preview": "vite build && vite preview --"
+    "preview": "vite build && vite preview --host"
   },
   "eslintConfig": {
     "extends": [
