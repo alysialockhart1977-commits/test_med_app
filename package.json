@@ -17,27 +17,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build && rm -rf server/build && mv dist server/build",
-    "lint": "eslint .",
-    "preview": "vite build && vite preview --host"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
