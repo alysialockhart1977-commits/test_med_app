@@ -17,7 +17,7 @@ RUN cd server && npm install
 # Copy the rest of the application
 COPY . .
 
-# Build the frontend and move it to server/build
+# Build the frontend 
 RUN npm run build
 
 # Expose backend port
