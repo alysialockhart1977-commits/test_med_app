@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// MongoDB connection URI (from your lab)
-const mongoURI = "mongodb://root:UtdsSmtM5zGWwPrC9b6T6G7s@172.21.13.209:27017/test_med";
+// MongoDB connection URI (updated with new credentials)
+const mongoURI = "mongodb://root:RsvO0mShh9YCWKry2jGAKk5v@172.21.52.212:27017";
 
 const connectToMongo = async () => {
   try {
